@@ -2,7 +2,7 @@
 
 This repository contains R code for a Financial Theory (M.A.) course at UNISG.
 
-# Specfications on Files
+# Specifications on Files
 
 ## [A1_ptf_choice_mvf.R](https://github.com/nathaliemayor/Financial_Theory/blob/main/A1_PTF_choice_MVF.R) - *Return Calculations, Portfolio Choice and Mean-Variance Frontier, Correlation Analysis*
 
@@ -35,7 +35,7 @@ we apply Vasicek model (1977) to forecast future short rates. The Vasicek model 
 We use option derivatives to construct a portfolio and compare it to some simple buy&hold equity strategy.
 
 1. Based on the expected volatility estimate, we use the option contracts to create a specific payoff structure. We use the Black-Scholes option pricing formula to calculate the price of a call and a put. 
-2. Going long with the call and short with the put, we calculate the value of the position and draw the respective payoff diagram. We campute the expected return and expected volatility of the option strategy. 
+2. Going long with the call and short with the put, we calculate the value of the position and draw the respective payoff diagram. We compute the expected return and expected volatility of the option strategy. 
 3. We compare the option portfolio with a simple buy&hold strategy where we directly invest into the risk free asset (lend or borrow without restrictions) and an ETF perfectly tracking the S&P500. 
 4. We measure the probability for (i) the option strategy and (ii) for the buy&hold strategy to be profitable at maturity date.
 
