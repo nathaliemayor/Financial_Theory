@@ -23,8 +23,18 @@ This repository contains R code for a Financial Theory (M.A.) course at UNISG.
 3. Comparing the Fama-French model with the HML and HML<sub>devil</sub> [[1]](#1) (B/P ratio updates with every incremental price data point,
 and not just on the dates when the book value updates) approaches. 
 
-# References
+## [A4_interest_rate_models.R](https://github.com/nathaliemayor/Financial_Theory/blob/main/A4_interest_rate_models.R) - *Vasicek model (1977)*[[2]](#2)
 
+we apply Vasicek model (1977) to forecast future short rates. The Vasicek model is one of the earliest no–arbitrage interest rate models, which is based on the idea of mean reverting interest rates. We assume there is no risk premium. 
+
+1. Assuming that the short interest rate follows an AR(1) process, we estimate and plot the expected future short rate based on 30–year horizon and initial short rates of 0.5%, 2%, and 5% (μ = 2%). We consider the two cases of mean reversion: ρ= 0.5 and ρ = 0.95.
+2. We estimate and plot separately the intercept *a(m)* and the slope *b(m)* of the long interest rates for the both values of ρ.
+
+
+# References
 
 <a id="1">[1]</a> 
  Cliff Asness, Andrea Frazzini (2013). The Devil in HML's Detail. The Journal of Portfolio Management. Volume 9. Number 4.
+ 
+ <a id="2">[2]</a> 
+ Vasicek, O., 1977. An equilibrium characterization of the term structure. Journal of financial economics, 5(2), pp.177-188.
