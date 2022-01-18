@@ -30,6 +30,16 @@ we apply Vasicek model (1977) to forecast future short rates. The Vasicek model 
 1. Assuming that the short interest rate follows an AR(1) process, we estimate and plot the expected future short rate based on 30–year horizon and initial short rates of 0.5%, 2%, and 5% (μ = 2%). We consider the two cases of mean reversion: ρ= 0.5 and ρ = 0.95.
 2. We estimate and plot separately the intercept *a(m)* and the slope *b(m)* of the long interest rates for the both values of ρ.
 
+## [A5_financial_options.R](https://github.com/nathaliemayor/Financial_Theory/blob/main/A5_financial_options.R) - *Option Strategy*
+
+We use option derivatives to construct a portfolio and compare it to some simple buy&hold equity strategy.
+
+1. Based on the expected volatility estimate, we use the option contracts to create a specific payoff structure. We use the Black-Scholes option pricing formula to calculate the price of a call and a put. 
+2. Going long with the call and short with the put, we calculate the value of the position and draw the respective payoff diagram. We campute the expected return and expected volatility of the option strategy. 
+3. We compare the option portfolio with a simple buy&hold strategy where we directly invest into the risk free asset (lend or borrow without restrictions) and an ETF perfectly tracking the S&P500. 
+4. We measure the probability for (i) the option strategy and (ii) for the buy&hold strategy to be profitable at maturity date.
+
+
 
 # References
 
