@@ -28,7 +28,7 @@ and not just on the dates when the book value updates) approaches.
 we apply Vasicek model (1977) to forecast future short rates. The Vasicek model is one of the earliest no–arbitrage interest rate models, which is based on the idea of mean reverting interest rates. We assume there is no risk premium. 
 
 1. Assuming that the short interest rate follows an AR(1) process, we estimate and plot the expected future short rate based on 30–year horizon and initial short rates of 0.5%, 2%, and 5% (μ = 2%). We consider the two cases of mean reversion: ρ= 0.5 and ρ = 0.95.
-2. We estimate and plot separately the intercept *a(m)* and the slope *b(m)* of the long interest rates for the both values of ρ.
+2. We estimate and plot separately the intercept *a(m)* and the slope *b(m)* of the long interest rates for the both values of *ρ*.
 
 ## [A5_financial_options.R](https://github.com/nathaliemayor/Financial_Theory/blob/main/A5_financial_options.R) - *Option Strategy*
 
