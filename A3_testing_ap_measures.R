@@ -29,7 +29,6 @@ str(data1ts)
 
 ## 1 - CAPM equation
 MonthlyReturns<-Return.calculate(data1ts,method = "log")
-MonthlyReturns
 rf=0.001
 rfm=rf/12
 
@@ -81,7 +80,6 @@ summary(CAPM_WMT)
 
 ### b. SML and CML
 meansUS<-colMeans(na.omit(MonthlyReturns[,c(1,2,4,7)]))
-meansUS
 
 capm.betas = function(r,market) {
   capm.fit = lm(r~market)
@@ -106,7 +104,6 @@ text(betas[4],meansUS[4],"WMT",1.1)
 
 sdUS<-colSds(na.omit(MonthlyReturns[,c(1,2,4,7)]))
 CML<-lm(meansUS~sdUS)
-CML
 
 plot(sdUS,meansUS,main="Expected returns vs. Volatility",ylab="Mean Returns",xlab="Standard Deviation",ylim=c(-0.03,0.09),xlim=c(0.03,0.2))
 abline(CML,col=6)
@@ -121,7 +118,6 @@ AMDandWMTprices<-data1ts[69,c(1,7)]
 AMDshare<-12000*AMDandWMTprices[1]
 WMTshare<-3500*AMDandWMTprices[2]
 EndownmentValue<-AMDshare+WMTshare
-EndownmentValue
 
 WavgBeta<-betas[1]*AMDshare/EndownmentValue+betas[4]*WMTshare/EndownmentValue
 WavgBeta ### = 1.571
@@ -129,7 +125,6 @@ WavgBeta ### = 1.571
 ### to be market we need a beta of 0, so we need to short 1.57*endowment of SPY = 
 
 shortSPYvalue<-WavgBeta*EndownmentValue
-shortSPYvalue
 
 lm(MRDAX~MRSPY)
 lm(MROMXC~MRSPY)
@@ -160,14 +155,11 @@ data1ts[69,1]*betas[1]*(1-0.12)
 data1ts[69,2]*betas[2]*(1+0.05)
 data1ts[69,2]*betas[2]*(1-0.12)
 
-
-
-
 ##############################################################################################################
 ################################################ PROBLEM 2 ###################################################
 ##############################################################################################################
 data2PS3<-read.csv("PS3_task2.csv",header = FALSE)
-data2PS3
+
 
 ###  Average Value Weighted Returns -- Monthly
 table1<-as.numeric(data2PS3[16:1146,1:11])
@@ -185,8 +177,6 @@ rp6<-as.numeric(table11[,6])-rfm
 fMRF<-as.numeric(table11[,7])
 fSMB<-as.numeric(table11[,8])
 fHML<-as.numeric(table11[,9])
-
-table1
 
 table1[704,]
 data3PS3[1,]
@@ -256,13 +246,7 @@ abline(a=0,b=1,col="8")
 
 rp1FF1<-FF1$coefficients[2]*fMRF+FF1$coefficients[3]*fSMB+FF1$coefficients[4]*fHML
 summary(rp1FF1)
-  
-  
-  
-  
-
-
-
+ 
 rp1m1<-mean(rp1FF1)
 rp1FFm1<-mean(rp1)
 
@@ -272,7 +256,6 @@ rp2FFm1<-mean(rp2)
 
 rp3FF1<-FF3$coefficients[2]*fMRF+FF3$coefficients[3]*fSMB+FF3$coefficients[4]*fHML
 rp3m1<-mean(rp3FF1)
-
 
 rp3FFm1<-mean(rp3)
 
@@ -293,9 +276,6 @@ rp6FFm1<-mean(rp6)
 
 true1<-c(rp1m1,rp2m1,rp3m1,rp4m1,rp5m1,rp6m1)
 predicted1<-c(rp1FFm1,rp2FFm1,rp3FFm1,rp4FFm1,rp5FFm1,rp6FFm1)
-
-true1
-predicted1
 
 plot(true1,predicted1,xlab="Predicted mean excess returns",ylab="Mean excess returns",main="FF model",xlim=c(0.6,1.2),ylim=c(0.6,1.2))
 text(true1[1],predicted1[1],"SMALL LoBM",-0.3)
@@ -321,13 +301,11 @@ table22<-table2[-1,]
 table3<-data2PS3[2284:2377,1:7]
 colnames(table3)<-table3[1,1:7]
 table33<-table3[-1,]
-table33
 
 ###  Average Equal Weighted Returns -- Annual	
 table4<-data2PS3[2381:2474,1:7]
 colnames(table4)<-table4[1,1:7]
 table44<-table4[-1,]
-table44
 
 ### 	 Number of Firms in Portfolios
 table5<-data2PS3[2478:3608,1:7]
@@ -374,9 +352,6 @@ colnames(table10)<-table10[1,1:7]
 table1010<-table10[-1,]
 
 
-
-
-
 ##############################################################################################################
 ################################################ PROBLEM 3 ###################################################
 ##############################################################################################################
@@ -389,9 +364,6 @@ data3PS3[,6] <- as.numeric(gsub("%", "",data3PS3[,6]))/100
 data3PS3[,7] <- as.numeric(gsub("%", "",data3PS3[,7]))/100
 data3PS3[,8] <- as.numeric(gsub("%", "",data3PS3[,8]))/100
 data3PS3$DATE<-as.Date(data3PS3$DATE,format = "%m/%d/%Y")
-data3PS3
-
-0.077*0.305
 
 
 m1<-mean(data3PS3$MKT.RF+data3PS3$RF)*12
@@ -400,14 +372,6 @@ m2<-mean(data3PS3$HML.Devil+data3PS3$RF)*12
 sd2<-sd(data3PS3$HML.Devil+data3PS3$RF)*sqrt(12)
 m3<-mean(data3PS3$HML.FF+data3PS3$RF)*12
 sd3<-sd(data3PS3$HML.FF+data3PS3$RF)*sqrt(12)
-
-m1
-sd1
-m2
-sd2
-m3
-sd3
-
 
 m11<-mean(data3PS3$MKT.RF-data3PS3$RF)*12
 sd11<-sd(data3PS3$MKT.RF-data3PS3$RF)*sqrt(12)
@@ -419,12 +383,6 @@ sd33<-sd(data3PS3$HML.FF)*sqrt(12)
 sharpe1<-m11/sd11
 sharpe2<-m22/sd22
 sharpe3<-m33/sd33
-sharpe1
-sharpe2
-sharpe3
-
-m22
-sd22
 
 MER<-data3PS3$MKT.RF-data3PS3$RF
 
@@ -436,59 +394,48 @@ summary(lm(data3PS3$MKT.RF+data3PS3$RF~data3PS3$SMB+data3PS3$HML.FF+data3PS3$RMW
 
 
 ## c
-data1ts
-
 BPratios1<-c(data1ts[1,12]/data1ts[1,1],
 data1ts[1,13]/data1ts[1,2],
 data1ts[1,15]/data1ts[1,4],
 data1ts[1,18]/data1ts[1,7])
 min(BPratios1)
-BPratios1
 
 BPratios2<-c(data1ts[17,12]/data1ts[17,1],
              data1ts[17,13]/data1ts[17,2],
              data1ts[17,15]/data1ts[17,4],
              data1ts[17,18]/data1ts[17,7])
 min(BPratios2)
-BPratios2
 
 BPratios3<-c(data1ts[33,12]/data1ts[33,1],
              data1ts[33,13]/data1ts[33,2],
              data1ts[33,15]/data1ts[33,4],
              data1ts[33,18]/data1ts[33,7])
 min(BPratios3)
-BPratios3
 
 BPratios4<-c(data1ts[49,12]/data1ts[49,1],
            data1ts[49,13]/data1ts[49,2],
            data1ts[49,15]/data1ts[49,4],
            data1ts[49,18]/data1ts[49,7])
 min(BPratios4)
-BPratios4
+
 
 BPratios5<-c(data1ts[65,12]/data1ts[65,1],
              data1ts[65,13]/data1ts[65,2],
              data1ts[65,15]/data1ts[65,4],
              data1ts[65,18]/data1ts[65,7])
 min(BPratios5)
-BPratios5
 
 ## 1.BA, 2. AMD, 3.BA, 4.BA, 5. BA
 period1<-data1ts[1:17,2]
-period1
 period2<-data1ts[17:33,1]
-period2
 period3<-data1ts[33:69,2]
-period3
 
 r1<-returns(period1)
 r2<-returns(period2)[-1]
 r3<-returns(period3)[-1]
 
-r1
 ok<-append(r1,r2)
 ok1<-append(ok,r3)
-ok1
 mean(na.omit(ok1))*12  ### yealry avg returns on BP strategy
 mean(na.omit(returns(data1ts[,11])))*12 ### yearly avg returns on SP500 
 
@@ -498,8 +445,6 @@ BPratios1<-c(data1ts[1,12]/data1ts[1,1],
              data1ts[1,15]/data1ts[1,4],
              data1ts[1,18]/data1ts[1,7])
 min(BPratios1)
-BPratios1
-
 
 a<-as.data.frame(data1ts[,12]/data1ts[,1])
 b<-as.data.frame(data1ts[,13]/data1ts[,2])
@@ -513,11 +458,8 @@ k<-cbind(a,b,c,d)
 ## 21:69 BA
 
 period4<-data1ts[1:3,2]
-period4
 period5<-data1ts[3:21,1]
-period5
 period6<-data1ts[21:69,2]
-period6
 
 r4<-returns(period4)[-1]
 r5<-returns(period5)[-1]
@@ -525,7 +467,6 @@ r6<-returns(period6)[-1]
 
 as<-append(r4,r5)
 ad<-append(as,r6)
-ad
 mean(ad)*12 ### new mean HLM devil
 
 
