@@ -158,7 +158,6 @@ axis(1, at = seq(-1.5, 1, 0.05))
 axis(2, at = seq(-5, 50,5))
 
 MASR<-mean(AnnualizedSR,na.rm=TRUE)
-MASR
 
 hist(AnnualizedSR,nclass = 100,xaxt = "n",yaxt="n",col="purple",xlab = "Annualized S.Dev. Sharpe Ratios",main="Histogram of Annualized S.D. Sharpe Ratios")
 abline(v=MASR,col="blue")
@@ -170,7 +169,6 @@ axis(2, at = seq(-5, 200,5))
 ## Get vectors for the portfolios' weights
 w1<-rep(1/ncol(train.DailyLogReturns),ncol(train.DailyLogReturns))
 w23<-rep(1/30,30)
-w23
 
 ## min Volatility portfolio, n=30
 ordervol<-sort(colStdevs(train.DailyLogReturns))
@@ -178,23 +176,19 @@ OV<-as.data.frame(ordervol)
 minvol<-top_n(OV,-30)
 minvolnames<-t(row.names(minvol))
 minvolptf<-as.data.frame(minvolnames)
-minvol
 
 ## get names from constituents.csv
 minVolNames<-read.csv("minVolNames.csv",header = TRUE)
 minVolNames$gvkey
 Namesptfii<-minVolNames[minVolNames$gvkey%in%minvolnames,]
-Namesptfii
- 
-bc
 
 ## high momentum portfolio, n=30
 momentum<-train.DailyLogReturns['2019-01-01/2019-11-30']
-momentum
+
 orderMomentum<-sort(colSums(momentum),decreasing = TRUE)
 OR<-as.data.frame(orderMomentum)
 maxReturn<-top_n(OR,30)
-maxReturn
+
 maxreturnsnames<-t(row.names(maxReturn))
 ncol(maxreturnsnames)
 join(max,train)
@@ -202,10 +196,8 @@ max<-as.data.frame(maxreturnsnames)
 str(max)
 
 Namesptfiii<-minVolNames[minVolNames$gvkey%in%maxreturnsnames,]
-Namesptfiii
 ab[,colnames(ab)%in%Namesptfiii]
-ab
-maxreturnsnames
+
 
 
 ## Portfolio i
@@ -213,32 +205,26 @@ qw<-mean(row_sums(train.DailyReturns*w1))*252
 rs<-StdDev(train.DailyLogReturns,weights = w1)*sqrt(252)
 plot(rs,qw)
 
-qw
-rs
-
 
 ## Portfolio ii
 MinVolatilityAssets<-train[,colnames(train)%in%minvolptf]
-MinVolatilityAssets
 MinVolReturns<-na.omit(Return.calculate(MinVolatilityAssets,method = "log"))
 
 ## Portfolio iii
 HighestReturnsAssets<-train[,colnames(train)%in%max] 
 haranr<-na.omit(Return.calculate(HighestReturnsAssets,method = "discrete"))
 sumharanr<-mean(row_sums(haranr*w23))*252
-sumharanr
 HRAReturns<-na.omit(Return.calculate(HighestReturnsAssets, method = "log"))
-HRAReturns
+
 
 ## realized volatility
 sdPTFIII<-StdDev(HRAReturns,weights = w23)*sqrt(252)
-sdPTFIII
+
 
 ## Leverage
 ## As we can write sdIII=vsdI with v the Leverage ration, then, v=sdIII/sdI, the Leverage ratio v is then 1.469046, meaning that we invest 146.9% percent of our wealth in the PTF1
 ## as a result we borrow a the risk free rate 46.9% of our wealth and invest in PTF1. ex if our capital is 100, we borrow 46.9 and invest the total sum of 146.9 in the portfolio 1.
 Leverage<-sdPTFIII/rs
-Leverage
 
 ## The leverage would be 46.9046%%
 
@@ -256,7 +242,6 @@ PiReturns<-colMeans(test.DailyLogReturns)*252
 hist(PiReturns,nclass = 100)
 
 PTFIAR<-sum(PiReturns*w1)
-PTFIAR
 
 ## Realized annual volatility
 StdDev(test.DailyLogReturns,weights=w1)*sqrt(252)
@@ -269,7 +254,6 @@ SRTest<-col_means(ExcessReturnstest)/colSds(ExcessReturnstest)*sqrt(252)
 SRTest[!is.finite(SRTest)]<-NA
 sum(w1*SRTest,na.rm = TRUE)
 
--0.3414297/0.3535917
 
 ## Portfolio ii
 ### Realized Annualized Returns
@@ -278,7 +262,6 @@ MinVolatilityAssets2Returns<-test.DailyLogReturns[,colnames(test.DailyLogReturns
 a<-colMeans(MinVolatilityAssets2Returns)*252
 hist(a,nclass = 30)
 PTFIIAR<-sum(a*w23)
-PTFIIAR
 
 ## Realized annual volatility
 StdDev(MinVolatilityAssets2Returns,weights = w23)*sqrt(252)
@@ -316,22 +299,16 @@ bd<-function(x){x/as.numeric(ad)}
 ewp12<-t(apply(PTFIPrices2,MARGIN = 1,bd))
 head(ewp12)
 
-ewp12
-
 SumsPTFIPrices2<-.xts(x = rowSums(ewp12), .index(PTFIPrices2))
 norPTFIPrices2<-SumsPTFIPrices2/as.numeric(SumsPTFIPrices2[1,])*100
 plot(norPTFIPrices2,main="Normalized portfolio i prices")
 norPTFIPrices2<-cbind(dates=rownames(norPTFIPrice2),norPTFIPrices2)
-norPTFIPrices2
 
 
 g<-rowSums(PTFI)
 SumsPTFIPrices<-.xts(x = g, .index(PTFIPrices))
 norPTFIPrices<-SumsPTFIPrices/2021.404
 plot(norPTFIPrices)
-
-
-
 
 PTFIPrices<-test
 
@@ -342,13 +319,10 @@ bb<-function(x){x/as.numeric(ac)}
 ewp1<-t(apply(PTFIPrices,MARGIN = 1,bb))
 head(ewp1)
 
-ewp1
-
 SumsPTFIPrices<-.xts(x = rowSums(ewp1), .index(PTFIPrices))
 norPTFIPrices<-SumsPTFIPrices/as.numeric(SumsPTFIPrices[1,])*100
 plot(norPTFIPrices)
 norPTFIPrices<-cbind(dates=rownames(norPTFIPrices),norPTFIPrices)
-norPTFIPrices
 
 g<-rowSums(PTFI)
 SumsPTFIPrices<-.xts(x = g, .index(PTFIPrices))
@@ -358,7 +332,6 @@ plot(norPTFIPrices)
 ## Portfolio ii 
 ### normalized prices
 PTFIIPrices<-test[,colnames(test)%in%minvolptf]
-bc
 
 bc<-PTFIIPrices[1,]/as.numeric(sum(PTFIIPrices[1,]))
 cc<-function(x){x/as.numeric(bc)}
@@ -372,17 +345,12 @@ SumsPTFIIPrices<-.xts(x = rowSums(ewp2), .index(PTFIIPrices))
 norPTFIIPrices<-SumsPTFIIPrices/as.numeric(SumsPTFIIPrices[1,])*100
 plot(norPTFIIPrices)
 norPTFIIPrices<-cbind(dates=rownames(norPTFIIPrices),norPTFIIPrices)
-norPTFIIIPrices
 SumsPTFIIPrices<-.xts(x = rowSums(PTFIIPrices), .index(PTFIIPrices))
 norPTFIIPrices<-SumsPTFIIPrices/945.3314
-norPTFIIPrices
-
-
 
 ## Portfolio iii
 ### normalized prices of the portfolios
 PTFIIIPrices<-test[,colnames(test)%in%max]
-PTFIIIPrices
 
 ab<-PTFIIIPrices[1,]/as.numeric(sum(PTFIIIPrices[1,]))
 dd<-function(x){x/as.numeric(ab)}
@@ -395,18 +363,12 @@ SumsPTFIIIPrices<-.xts(x = rowSums(ewp3), .index(PTFIIIPrices))
 norPTFIIIPrices<-SumsPTFIIIPrices/as.numeric(SumsPTFIIIPrices[1,])*100
 plot(norPTFIIIPrices)
 norPTFIIIPrices<-cbind(dates=rownames(norPTFIIIPrices),norPTFIIIPrices)
-norPTFIIIPrices
 
 ### Plot with normalized prices of the 3 portfolios
 plot(norPTFIIIPrices,ylim=range(65:130),main="Normalized Portfolio prices",col="brown")
 lines(norPTFIPrices,col="blue")
 lines(norPTFIIPrices,col="purple")
 
-
-norPTFIIPrices
-
-
-norPTFIIIPrices
 ## portfolio returns
 ### portfolio i 
 PTF1returns<-na.omit(Return.calculate(norPTFIPrices,method = "log"))
@@ -448,13 +410,10 @@ ThreeStocks<-train[,colnames(train)%in%c("X325248","X234246","X242381")]
 ThreeStocks.DailyLogReturns <- na.omit(Return.calculate(ThreeStocks, method = "log"))
 ThreeStocksAnnualizedReturns<-colMeans(ThreeStocks.DailyLogReturns)*252
 ThreeStocksSD<-StdDev(ThreeStocks.DailyLogReturns)*sqrt(252)
-ThreeStocksAnnualizedReturns
-ThreeStocksSD
 ###
 ER<-ThreeStocksAnnualizedReturns
 names(ER)<-Stocks
 covmat<-cov(ThreeStocks.DailyLogReturns*sqrt(252))
-covmat
 cov(ThreeStocks.DailyLogReturns*sqrt(252))
 
 dimnames(covmat)<-list(Stocks,Stocks)
@@ -462,21 +421,16 @@ ew=rep(1,3)/3
 equalWeight.portfolio = getPortfolio(er=er,cov.mat=covmat,weights=ew)
 class(equalWeight.portfolio)
 names(equalWeight.portfolio)
-equalWeight.portfolio
 getPortfolio(er=ER,cov.mat = covmat,weights = ew)
 plot(equalWeight.portfolio)
 gmin.port<-globalMin.portfolio(ER,covmat)
 attributes(gmin.port)
-gmin.port
 target.return<-ER[1]
 e.port.msft<-efficient.portfolio(er,covmat,target.return)
-e.port.msft
 RFA<-0.001
 tan.port<-tangency.portfolio(ER,covmat,RFA,shorts = FALSE)
-tan.port
 ef<-efficient.frontier(ER,covmat,alpha.min = -2,alpha.max = 1.5,nport = 200,shorts = FALSE)
 attributes(ef)
-ef
 summary(ef)
 plot(ef$sd,ef$sd,xlim=c(0,1))
 ef$call
@@ -490,21 +444,14 @@ points(tan.port$sd, tan.port$er, col="pink",pch=19)
 points(tan.port$sd*opt,tan.port$er*opt,pch=19,col="blue")
 sr.tan = (tan.port$er - RFA)/tan.port$sd
 
-
-sr.tan/10
-
-tan.port
-
 opt<-tan.port$er/(tan.port$sd^2)*1/10
 opt*tan.port$er
 opt*tan.port$sd
-
 
 Stocks<-c("NIBE","WTP","SBBB")
 
 table<-matrix(c(Stocks,ThreeStocksAnnualizedReturns,ThreeStocksSD),ncol = 3,byrow = FALSE)
 colnames(table)<-c("Stocks","Expected Return","Volatility")
-table
 table1<-as.data.frame(table)
 str(table1)
 
@@ -514,8 +461,6 @@ plot1+
 
 CovMatrixy<-cov(ThreeStocks.DailyLogReturns*sqrt(252))
 CorrMatrix<-cor(ThreeStocks.DailyLogReturns)
-CovMatrixy
-CorrMatrix
 
 a1 <- matrix(rbeta(4000*3,2,2), nc=3)
 a1 <- sweep(a1, 1, rowSums(a1), FUN="/")
@@ -523,23 +468,13 @@ head(a1)
 colnames(a1)<-c("w1","w2","w3")
 a1<-as.data.frame(a1)
 str(a1)  
-a1
 
 PReturns<-as.numeric(ef$er)
 PVolatility<-as.numeric(ef$sd)
-PVolatility
 
 as.numeric(ef$sd)
 
-
-covmat*a1
-
-covmat
-
-tg
-
 tableforplot<-matrix(c(PReturns,PVolatility),ncol = 2,byrow=FALSE)
-tableforplot
 
 tableforplot<-as.data.frame(tableforplot)
 
@@ -555,7 +490,6 @@ plot2+
 
 ggplot(data = e)  
 
-slope
 tangencyptfmean<-0.4156946
 tangencyptfsd<-0.009823199
 
@@ -567,22 +501,14 @@ returnsw<-as.data.frame(ThreeStocksAnnualizedReturns)
 ThreeStocksSD[,1]
 
 sdp<-sqrt(w_1^2*sd_1^2+w_2^2*sd_2^2+w_3^2+sd_3^2+2*w_1*w_2*cov_12+2*w_1*w_3*cov_13+2*w_2*w_3*cov_23)
-sdp
 
 tableabc<-matrix(c(PReturns,sdp),ncol = 2,byrow=FALSE)
-tableabc
 
 tableabc<-as.data.frame(tableabc)
 
 plot3<-ggplot(data = tableabc,mapping = aes(x=sdp,y=PReturns))
 plot3+
   geom_point()
-
-#######
-zreturns<-
-zsd<-
-
-#######
 
 
 #######################################################################################################
@@ -592,7 +518,6 @@ zsd<-
 ## a. Correlation matrix for every fiscal month
 str(data.xts)
 rdata.xts<-na.omit(Return.calculate(data.xts, method = "log"))
-rdata.xts
 Jan.18<-rdata.xts['2018-01-01/2018-02-01']
 feb.18<-rdata.xts['2018-02-01/2018-03-01']
 mar.18<-rdata.xts['2018-03-01/2018-04-01']
@@ -680,8 +605,6 @@ plot(TenCorrelationsJan.18)
 scatter.smooth(TenCorrelationsJan.18)
 scatter.smooth(TenCorrelationsMar.20)
 
-TenCorrelationsJan.18
-TenCorrelationsMar.20
 ## 
 CorList<-list(correlationJan.18,
               correlationFeb.18,
@@ -730,8 +653,6 @@ f<-function(x){
 
 listMaxMinMean<-sapply(MaxMinMeanCor, f)
 transposed_listMaxMinMean<-t(listMaxMinMean)
-
-listMaxMinMean
 
 tscor<-ts(transposed_listMaxMinMean,frequency = 12,start = 2018)
 colnames(tscor)<-c("Max","Min","Mean")
