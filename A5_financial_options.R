@@ -25,9 +25,7 @@ data5<-read.csv("PS5_data.csv",header = TRUE, sep = ";")
 ### a.
 daily_returns_SP500<-returns(data5$SP500,method="logarithmic")
 mean_daily_returns_SP500<-mean(daily_returns_SP500)
-mean_daily_returns_SP500
 volatility_SP500<-sd(daily_returns_SP500)
-volatility_SP500
 
 rho0<-0.015
 alpha<-0.5
@@ -35,7 +33,6 @@ rhoH<-volatility_SP500
 tau<-189
 
 expected_volatility_SP500<-(rho0+(rhoH-rho0)*tau^(-alpha))*sqrt(tau)
-expected_volatility_SP500
 
 ### b.  
 K1=3700
@@ -63,15 +60,12 @@ BS <- function(S, K, r, T, sig, type){
 
 ### i Call with tau=189 and strike K=3700
 call <- BS(S,K1,rf,m,expected_volatility_SP500,"C")
-call
 
 ### ii Put with tau=189 and strike K=3400
 put <- BS(S,K2,rf,m,expected_volatility_SP500,"P")
-put
 
 ### c. Payoff diagrams
 position_value<-call-put
-position_value
 
 p=4000
 
@@ -122,7 +116,6 @@ points(3811,0)
 text(3810-70,30,"Breakeven",cex=0.6)
 
 sumpayoff<-as.data.frame(payoff1[2900:4500]+payoff2[2900:4500])
-sumpayoff
 
 index(sumpayoff)<-2900:4500
 rownames(sumpayoff)<-2900:4500
@@ -131,7 +124,6 @@ a<-rbind(sumpayoff,2900:4500)
 a[1]
 
 a<-sumpayoff+rep(call-put,1600)
-a
 
 
 plot(rownames(sumpayoff),rowMaxs(a$`payoff1[2900:4500] + payoff2[2900:4500]`,0),type="l",xlim =c(2900,4500),ylim = c(-200,300),main = "Option Strategy Payoff Diagram",col="blue",xlab = "S&P 500 Price at Expiration",ylab = "Payoff at Expiration",lwd=2)
@@ -163,11 +155,9 @@ text(3500,-50,"Premium",cex=0.7)
 ### returns for the long call
 annual_return<-0.068
 expected_return_at_expiration<-annual_return*189/252
-expected_return_at_expiration
 S*1.051
 
 expected_call_returns<-max((1+expected_return_at_expiration)*S-K,0)-call
-expected_call_returns
 
 ### returns for the short put
 expected_put_returns<-put-max(0,K2-S*(1+expected_return_at_expiration))
@@ -176,16 +166,12 @@ expected_put_returns+expected_call_returns+call-put
 
 ### returns for the strategy
 expected_returns_option_strategy<-(expected_put_returns+expected_call_returns)/(call-put)
-expected_returns_option_strategy
-
 
 ### expected volatility
 vega_call<-S*exp(m*rf)*dnorm((log(S/K1) + (rf + expected_volatility_SP500^2/2)*m) / (expected_volatility_SP500*sqrt(m)))*sqrt(m)/100
 vega_put<-S*exp(m*rf)*dnorm((log(S/K2) + (rf + expected_volatility_SP500^2/2)*m) / (expected_volatility_SP500*sqrt(m)))*sqrt(m)/100
 vega_call ### in USD, a rise in volatility of 1% makes the call more expensive by 12.21 USD
 vega_put ### in USD, a rise in volatility of 1% makes the put more expensive by 10.50 USD
-vega_call
-vega_put
 vega_call/call
 vega_put/put
 
@@ -224,8 +210,6 @@ volOptimFun <- function(sigma, price, S, K, r, q, ttm, type){
 optimize(volOptimFun, interval = c(0, 1), price = put, S = S,q=0, K = K2, r = rf, ttm = 189, type = "put")
 optimize(volOptimFun, interval = c(0, 1), price = call, S = S,q=0, K = K1, r = rf, ttm = 189, type = "call")
 
-expected_volatility_SP500
-K1
 #### Implied volatility is 23.36 for the call
 #### IV is 23.21 for the put
 
@@ -255,7 +239,6 @@ pnorm(0,mean = 0.068*m,sd=expected_volatility_SP500*sqrt(189)/sqrt(252))
 
 ### option
 returnTE<-(3813.172-S)/S
-retrunTE
 3700+call-put
 
 
